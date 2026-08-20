@@ -6,14 +6,27 @@ public class Clinic {
     public static void main(String[] args){
 
         Scanner input = new Scanner(System.in);
+        Integer choice = 0;
 
+        while (choice !=3) {
         System.out.println("[1] Dog");
         System.out.println("[2] Cat");
+        System.out.println("[3] Exit");
         System.out.print("\nChoose your pet number: ");
-        Integer choice = input.nextInt();
+        choice = input.nextInt();
 
+        if (choice == 3) {
+            System.out.println("Exiting clinic program...");
+            break;
+        }
+        
+        if (choice !=1 && choice !=2) {
+            System.out.println("Invalid choice. Please try again.");
+            continue;
+        }
+        
         PetRecord petFile = new PetRecord();
-        Pet pet;
+        Pet pet = null;
 
         switch(choice){
             case 1: pet = new Dog();
@@ -27,6 +40,7 @@ public class Clinic {
                 petFile.setPetName("Muning");
                 petFile.setPet(pet);
                 ((Cat) pet).setNoOfLives(9);
+        
         }
 
         System.out.println("Pet id is " + petFile.getPetId());
@@ -35,5 +49,12 @@ public class Clinic {
         System.out.println("Communication sound: "+ petFile.getPet().makeSound());
         System.out.println("Play mode: " + petFile.getPet().play());
 
+        if (choice == 1) {
+                System.out.println("Breed: " + ((Dog) petFile.getPet()).getBreed());
+            } else if (choice == 2) {
+                System.out.println("Number of lives: " + ((Cat) petFile.getPet()).getNoOfLives());
+        }
     }
+    input.close();
+}
 }
